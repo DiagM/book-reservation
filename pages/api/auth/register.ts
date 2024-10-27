@@ -8,26 +8,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         const { name, email, password } = req.body;
 
-        // Vérifier si l'utilisateur existe déjà
-        const existingUser = await prisma.user.findUnique({ where: { email } });
-
-        if (existingUser) {
-            return res.status(400).json({ message: "Cet e-mail est déjà utilisé." });
+        // Check if all fields are provided
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Tous les champs sont obligatoires." });
         }
 
-        // Hacher le mot de passe
-        const hashedPassword = await bcrypt.hash(password, 10);
+        try {
+            // Check if the user already exists
+            const existingUser = await prisma.user.findUnique({ where: { email } });
+            if (existingUser) {
+                return res.status(400).json({ message: "Cet e-mail est déjà utilisé." });
+            }
 
-        // Créer un nouvel utilisateur
-        const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password: hashedPassword,
-            },
-        });
+            // Hash the password
+            const hashedPassword = await bcrypt.hash(password, 10);
 
-        return res.status(201).json({ message: "Inscription réussie!", user });
+            // Create a new user
+            const user = await prisma.user.create({
+                data: {
+                    name,
+                    email,
+                    password: hashedPassword,
+                },
+            });
+
+            return res.status(201).json({ message: "Inscription réussie!", user });
+        } catch (error) {
+            console.error("Error during registration:", error);
+            return res.status(500).json({ message: "Une erreur est survenue lors de l'inscription." });
+        }
     }
 
     return res.status(405).json({ message: "Méthode non autorisée." });

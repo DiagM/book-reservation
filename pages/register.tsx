@@ -1,33 +1,49 @@
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import Input from '@/components/ui/input'
-import Link from 'next/link'
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import Input from '@/components/ui/input';
+import Link from 'next/link';
 
 export default function Register() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password }),
-        })
-
-        if (response.ok) {
-            const data = await response.json()
-            console.log('Inscription réussie:', data)
-            window.location.href = '/login';
-        } else {
-            const errorData = await response.json()
-            console.error('Erreur d\'inscription:', errorData)
-            // Gérer les erreurs d'inscription ici
+        e.preventDefault();
+        if (!name || !email || !password) {
+            setError('Tous les champs sont obligatoires.');
+            return;
         }
-    }
+
+        setError(''); // Clear previous error
+        setSuccess(''); // Clear previous success message
+
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Inscription réussie:', data);
+                setSuccess('Inscription réussie! Vous pouvez vous connecter maintenant.');
+                window.location.href = '/login';
+            } else {
+                const errorData = await response.json();
+                console.error('Erreur d\'inscription:', errorData);
+                setError(errorData.message || 'Erreur lors de l\'inscription. Veuillez réessayer.');
+            }
+        } catch (error) {
+            console.error('Erreur d\'inscription:', error);
+            setError('Une erreur est survenue. Veuillez réessayer.');
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -35,6 +51,8 @@ export default function Register() {
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                     Créez votre compte
                 </h2>
+                {error && <p className="text-red-500 text-center">{error}</p>}
+                {success && <p className="text-green-500 text-center">{success}</p>}
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -123,5 +141,5 @@ export default function Register() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
