@@ -3,7 +3,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 First, run the development server:
-
+npm run prisma:seed  #for admin User
+Admin USER:
+email: admin@example.com
+password: password
 ```bash
 npm run dev
 # or
@@ -20,17 +23,44 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Application de Réservation de Livres
 
-To learn more about Next.js, take a look at the following resources:
+Une application web pour la gestion des réservations de livres, permettant aux utilisateurs de se connecter, de s'inscrire et de gérer efficacement leurs réservations. Cette application est construite avec Next.js pour le frontend et Prisma avec PostgreSQL pour le backend.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Sommaire
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Fonctionnalités](#fonctionnalités)
+- [Technologies Utilisées](#technologies-utilisées)
+- [Installation](#installation)
+- [Configuration de l'environnement](#configuration-de-lenvironnement)
+- [Endpoints API](#endpoints-api)
+- [Utilisation de l'application](#utilisation-de-lapplication)
+- [Tests](#tests)
+- [Contribuer](#contribuer)
+- [Licence](#licence)
+- [Contact](#contact)
 
-## Deploy on Vercel
+## Fonctionnalités
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Authentification Utilisateur** : Connexion et inscription sécurisées.
+- **Gestion des Livres** : Les utilisateurs peuvent consulter les livres disponibles et effectuer des réservations.
+- **Panneau Administratif** : Les utilisateurs administrateurs peuvent gérer les les livres.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies Utilisées
+
+- **Frontend**: 
+  - [Next.js](https://nextjs.org/) - Framework React pour les applications rendues côté serveur.
+  - [React](https://reactjs.org/) - Bibliothèque JavaScript pour la création d'interfaces utilisateur.
+  - [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitaire pour le style.
+
+- **Backend**: 
+  - [Express.js](https://expressjs.com/) - Framework web pour Node.js.
+  - [Prisma](https://www.prisma.io/) - ORM pour interagir avec la base de données.
+  - [PostgreSQL](https://www.postgresql.org/) - Système de gestion de base de données relationnelle.
+  - [bcrypt](https://www.npmjs.com/package/bcrypt) - Bibliothèque pour le hachage des mots de passe.
+  - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Bibliothèque pour la génération et la vérification des JWT.
+
+
+
+
+

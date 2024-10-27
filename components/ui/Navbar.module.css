@@ -1,0 +1,33 @@
+/* components/Navbar.module.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0070f3; /* A blue background */
+    padding: 1rem 2rem; /* Some padding */
+    color: white; /* Text color */
+  }
+  
+  .navbar a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline */
+    margin: 0 1rem; /* Margin between links */
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  .navbar button {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    margin-left: 1rem; /* Space before button */
+  }
+  
+  .navbar button:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
